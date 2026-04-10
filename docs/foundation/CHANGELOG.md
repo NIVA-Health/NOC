@@ -1,0 +1,147 @@
+# CHANGELOG
+
+## Purpose
+This changelog records meaningful changes to the NIVA Health OpenClaw workstation, software stack, configuration, models, and operating procedures. The goal is traceability, rollback awareness, and reduced debugging time.
+
+Related documents:
+- `openclaw_workstation_foundation_plan.md`
+- `WORKSTATION_BASELINE.md`
+- `MODEL_REGISTRY.md`
+- `RUNBOOK.md`
+
+---
+
+## Logging Rules
+1. Log changes the same day they happen.
+2. Prefer one entry per meaningful change or change set.
+3. Record why the change happened, not just what changed.
+4. If rollback is unclear, say so.
+5. If a change introduced a problem, note that explicitly.
+
+---
+
+## Entry Template
+
+Copy-paste this block for manual entries.
+
+```md
+## YYYY-MM-DD - Short change title
+- Operator:
+- Area:
+- Change:
+- Reason:
+- Expected impact:
+- Validation performed:
+- Rollback method:
+- Related files:
+- Notes:
+```
+
+---
+
+## Change Areas
+Use one of these labels when possible.
+
+| Area | Use for |
+|---|---|
+| Hardware | Physical upgrades, BIOS, drives, peripherals |
+| OS | Windows updates, activation, restore points |
+| Drivers | GPU, chipset, LAN, firmware |
+| Tooling | Git, Python, Node, PowerShell, editors |
+| OpenClaw | Gateway, config, agents, auth, sessions |
+| Models | Downloads, approvals, removals, backend changes |
+| Scripts | Startup, shutdown, backup, health check |
+| Security | Tokens, auth posture, remote access, secrets handling |
+| Docs | Runbook, baseline, roadmap, process updates |
+| Incident | Breakages and corrective actions |
+
+---
+
+## Current Log
+
+## 2026-04-09 - Documentation scaffold created
+- Operator: ChatGPT
+- Area: Docs
+- Change: Created the initial markdown documentation set for the OpenClaw workstation, including the roadmap, workstation baseline, model registry, runbook, and changelog.
+- Reason: Establish a durable operating roadmap and reduce undocumented setup drift.
+- Expected impact: Faster, more organized workstation buildout and easier troubleshooting later.
+- Validation performed: Files created and linked conceptually to each other.
+- Rollback method: Delete files if a different documentation structure is preferred.
+- Related files:
+  - `openclaw_workstation_foundation_plan.md`
+  - `WORKSTATION_BASELINE.md`
+  - `MODEL_REGISTRY.md`
+  - `RUNBOOK.md`
+  - `CHANGELOG.md`
+- Notes: This is the documentation baseline, not proof that software installation or configuration has been completed.
+
+---
+
+## Pending First Entries
+Use these once work begins on the actual machine.
+
+### Example: baseline capture
+```md
+## 2026-04-XX - Baseline machine inventory captured
+- Operator:
+- Area: Docs
+- Change: Captured hostname, OS build, BIOS version, driver versions, disk labels, and installed tool versions.
+- Reason: Establish known-good baseline before deeper OpenClaw setup.
+- Expected impact: Better troubleshooting and rollback clarity.
+- Validation performed:
+- Rollback method: Re-capture and replace if errors found.
+- Related files:
+  - `WORKSTATION_BASELINE.md`
+- Notes:
+```
+
+### Example: first model backend setup
+```md
+## 2026-04-XX - Local model backend configured
+- Operator:
+- Area: Models
+- Change: Configured LM Studio or other local backend to serve approved initial models from D:\Models.
+- Reason: Enable local inference for OpenClaw.
+- Expected impact: Working local model path for agent testing.
+- Validation performed:
+- Rollback method:
+- Related files:
+  - `MODEL_REGISTRY.md`
+  - `RUNBOOK.md`
+- Notes:
+```
+
+### Example: first OpenClaw boot
+```md
+## 2026-04-XX - OpenClaw minimal local configuration validated
+- Operator:
+- Area: OpenClaw
+- Change: Installed or validated OpenClaw with minimal local-only configuration and successful first session.
+- Reason: Confirm base architecture before adding complexity.
+- Expected impact: Working local orchestration layer.
+- Validation performed:
+- Rollback method:
+- Related files:
+  - `RUNBOOK.md`
+  - `WORKSTATION_BASELINE.md`
+- Notes:
+```
+
+---
+
+## Decision Points to Track
+
+| Decision | Status | Notes |
+|---|---|---|
+| Which reasoning model becomes first approved default | Open | |
+| Which coding model becomes first approved default | Open | |
+| Whether remote access is enabled in early phases | Open | |
+| Whether Docker is required in first-wave architecture | Open | |
+| Whether ClawOps UI is core or optional | Open | |
+
+---
+
+## Notes
+```text
+[Add notes here]
+```
