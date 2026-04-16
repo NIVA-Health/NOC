@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "routing_return_schema_v1.json",
+  "title": "Routing Return Schema v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_agent_id",
+    "completed_task_class",
+    "output_class",
+    "decision_summary",
+    "canonical_entities",
+    "context_checks",
+    "source_of_truth_notes",
+    "action_or_recommendation",
+    "escalation_note",
+    "audit_explanation"
+  ],
+  "properties": {
+    "source_agent_id": {
+      "type": "string",
+      "enum": ["main", "market_insights", "operator"]
+    },
+    "completed_task_class": {
+      "type": "string",
+      "minLength": 1
+    },
+    "output_class": {
+      "type": "string",
+      "enum": [
+        "Observation",
+        "Recommendation",
+        "Autonomous Action",
+        "Approval Packet",
+        "Human-Reserved Support"
+      ]
+    },
+    "decision_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_entities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "context_checks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_of_truth_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "action_or_recommendation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "escalation_note": {
+      "type": "string"
+    },
+    "audit_explanation": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

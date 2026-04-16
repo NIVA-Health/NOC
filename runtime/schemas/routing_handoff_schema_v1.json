@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "routing_handoff_schema_v1.json",
+  "title": "Routing Handoff Schema v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_agent_id",
+    "target_agent_id",
+    "routing_category",
+    "routing_confidence",
+    "routing_reason",
+    "original_request",
+    "normalized_task_statement",
+    "relevant_context",
+    "required_output_class",
+    "escalation_flag",
+    "timestamp"
+  ],
+  "properties": {
+    "source_agent_id": {
+      "type": "string",
+      "enum": ["main", "market_insights", "operator"]
+    },
+    "target_agent_id": {
+      "type": "string",
+      "enum": ["main", "market_insights", "operator"]
+    },
+    "routing_category": {
+      "type": "string",
+      "enum": [
+        "market_account_bdr",
+        "system_debugging_automation_repo",
+        "strategic_synthesis",
+        "general_planning",
+        "ambiguous_mixed_intent",
+        "other"
+      ]
+    },
+    "routing_confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "routing_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "original_request": {
+      "type": "string",
+      "minLength": 1
+    },
+    "normalized_task_statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "relevant_context": {
+      "type": "object",
+      "description": "Context assembled by the routing layer for specialist use.",
+      "additionalProperties": true
+    },
+    "required_output_class": {
+      "type": "string",
+      "enum": [
+        "Observation",
+        "Recommendation",
+        "Autonomous Action",
+        "Approval Packet",
+        "Human-Reserved Support"
+      ]
+    },
+    "escalation_flag": {
+      "type": "boolean"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
