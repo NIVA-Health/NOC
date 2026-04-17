@@ -59,6 +59,21 @@ Use one of these labels when possible.
 
 ## Current Log
 
+## 2026-04-16 - Azure appointments observation pilot defined
+- Operator: ChatGPT
+- Area: Docs
+- Change: Added the first bounded observation-only workflow for the Azure appointments source, including a workflow blueprint and observation prompt for plain-English operator summaries.
+- Reason: Move the source integration effort from adapter validation into a live, low-risk NOC workflow that can generate useful operational visibility without taking action.
+- Expected impact: Faster proof-of-value, clearer operator-facing summaries, and a stable bridge from raw API results to governed observation outputs.
+- Validation performed: Confirmed workflow scope, output requirements, and observation-only guardrails align with the adapter contract and staged rollout approach.
+- Rollback method: Remove or revise the pilot files if a different first workflow is selected.
+- Related files:
+  - `pilots/azure_appointments_observation/first_workflow_blueprint.md`
+  - `pilots/azure_appointments_observation/observation_prompt.md`
+  - `runtime/adapters/azure_appointments_adapter.md`
+  - `runtime/adapters/azure_appointments_smoke_test.ps1`
+- Notes: This establishes the first live external-source observation workflow in the repo.
+
 ## 2026-04-16 - Data source integration phase defined
 - Operator: ChatGPT
 - Area: Docs
