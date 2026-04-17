@@ -126,6 +126,60 @@ Freeform notes.
 
 ## Active Queue
 
+### GOV-2026-002
+**Title:** Azure appointments API date-filter and no-match classification governance  
+**Category:** adapter_mapping_gap  
+**Status:** new  
+**Priority:** P1  
+**Date Opened:** 2026-04-16  
+**Requestor:** NOC integration workstream  
+**Domain Steward:** TBD  
+**Technical Steward:** TBD  
+
+**Summary:**  
+The Azure-hosted appointments API has validated connectivity and authenticated retrieval, but server-side date-filter behavior is not yet governed. NOC also needs an approved semantic distinction between valid no-match results and true endpoint or auth failures.
+
+**Observed Source:**  
+System
+
+**Affected Artifacts:**  
+- `runtime/adapters/azure_appointments_adapter.md`
+- `runtime/adapters/azure_appointments_smoke_test.ps1`
+- `docs/rollout/data_source_integration_plan.md`
+- prompt templates
+- adapter docs
+
+**Candidate Canonical Mapping or Change:**  
+- Map successful zero-match query results to a governed no-match outcome rather than a failure outcome
+- Treat undocumented date filter behavior as unresolved until validated
+- Treat appointment API field labels as integration labels pending canonical mapping review
+
+**Risk If Unchanged:**  
+NOC may generate false alarms, misclassify healthy no-result queries as failures, or encode unstable undocumented query behavior into runtime logic.
+
+**Risk If Mapped Incorrectly:**  
+Operators may trust incorrect workflow states, downstream automations may trigger on false failure conditions, and local API naming may become de facto enterprise meaning.
+
+**Historical Impact:**  
+Low for historical reporting today, but medium if the same pattern is reused across future sources without correction.
+
+**Required Evidence:**  
+- repeated endpoint tests for target-date queries
+- evidence of whether `date`, `scheduledAt`, or `from/to` parameters are officially supported or only tolerated
+- examples of real appointment status values returned by the source
+- confirmation of operator-preferred wording for valid no-match results
+
+**Decision Needed:**  
+1. Which date-filter behavior is approved for production use?
+2. What is the governed classification for valid zero-match responses?
+3. Which returned fields and statuses require canonical term mapping before broader rollout?
+
+**Next Action:**  
+Run controlled tests for likely date-filter patterns, capture real returned status values, and review the no-match classification with the technical owner before recommendation-mode rollout.
+
+**Notes:**  
+This is the first live governance item tied directly to a real external source integration path.
+
 ### GOV-2026-001
 **Title:** Example placeholder, replace with real issue  
 **Category:** unresolved_term  
