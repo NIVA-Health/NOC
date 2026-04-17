@@ -19,20 +19,20 @@ Write-Host "Running Azure appointments observation workflow..."
 Write-Host "Target date: $TargetDate"
 Write-Host "Smoke test path: $SmokeTestPath"
 
-$arguments = @(
-    "-BaseUrl", $BaseUrl,
-    "-Username", $Username,
-    "-TargetDate", $TargetDate,
-    "-Limit", $Limit.ToString(),
-    "-EmitJson"
-)
+$smokeParams = @{
+    BaseUrl    = $BaseUrl
+    Username   = $Username
+    TargetDate = $TargetDate
+    Limit      = $Limit
+    EmitJson   = $true
+}
 
 if ($TryServerSideDateFilters) {
-    $arguments += "-TryServerSideDateFilters"
+    $smokeParams.TryServerSideDateFilters = $true
 }
 
 try {
-    $raw = & $SmokeTestPath @arguments
+    $raw = & $SmokeTestPath @smokeParams
     $result = $raw | ConvertFrom-Json
 }
 catch {

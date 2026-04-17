@@ -52,7 +52,7 @@ function Write-Result {
     }
 
     if ($EmitJson) {
-        $payload | ConvertTo-Json -Depth 8
+        return ($payload | ConvertTo-Json -Depth 8)
     }
     else {
         Write-Host ""
@@ -62,9 +62,9 @@ function Write-Result {
         $payload.details.GetEnumerator() | Sort-Object Name | ForEach-Object {
             Write-Host ("{0}: {1}" -f $_.Name, $_.Value)
         }
-    }
 
-    return $payload
+        return $payload
+    }
 }
 
 function Get-ErrorBody {
@@ -111,6 +111,36 @@ function Get-Appointments {
     return Invoke-RestMethod -Uri "$Url/appointments?$query" -Method GET -Headers $Headers
 }
 
+function Get-DatedRecords {
+    param([object[]]$Records)
+
+    return @(
+        $Records | Where-Object {
+            $_.scheduledAt
+        }
+    )
+}
+
+function Test-AllRecordsMatchTargetDate {
+    param(
+        [object[]]$Records,
+        [datetime]$TargetDateValue
+    )
+
+    $dated = Get-DatedRecords -Records $Records
+    if ($dated.Count -eq 0) {
+        return $false
+    }
+
+    $nonMatching = @(
+        $dated | Where-Object {
+            (Get-Date $_.scheduledAt).Date -ne $TargetDateValue
+        }
+    )
+
+    return ($nonMatching.Count -eq 0)
+}
+
 $securePassword = Read-Host "API password" -AsSecureString
 $password = Convert-SecureStringToPlainText -SecureString $securePassword
 $headers = New-BasicAuthHeader -User $Username -Password $password
@@ -150,11 +180,26 @@ if ($TryServerSideDateFilters) {
     foreach ($candidate in $filterCandidates) {
         try {
             $attempt = Get-Appointments -Url $BaseUrl -Headers $headers -Page 1 -PageLimit $Limit -ExtraQuery $candidate
+            $attemptData = @()
             if ($attempt -and $attempt.data) {
-                $response = $attempt
-                $details.server_side_filter_worked = $true
-                $details.server_side_filter_used = $candidate
-                break
+                $attemptData = @($attempt.data)
+            }
+
+            if ($attempt) {
+                $details.last_server_side_filter_tested = $candidate
+            }
+
+            if ($attemptData.Count -gt 0) {
+                if (Test-AllRecordsMatchTargetDate -Records $attemptData -TargetDateValue $target) {
+                    $response = $attempt
+                    $details.server_side_filter_worked = $true
+                    $details.server_side_filter_used = $candidate
+                    break
+                }
+                else {
+                    $details.server_side_filter_unverified_candidate = $candidate
+                    $details.server_side_filter_unverified_reason = "Returned records were not limited to the requested target date."
+                }
             }
         }
         catch {
