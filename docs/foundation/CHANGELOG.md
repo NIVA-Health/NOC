@@ -59,6 +59,20 @@ Use one of these labels when possible.
 
 ## Current Log
 
+## 2026-04-16 - Sample rendered Azure observation output added
+- Operator: ChatGPT
+- Area: Docs
+- Change: Added a sample rendered observation output file showing how the Azure appointments pilot should present no-match, successful retrieval, auth failure, and endpoint failure results to operators and leadership.
+- Reason: Provide a reviewable proof-of-value artifact, support QA of output wording, and establish a reference example for future workflow summaries.
+- Expected impact: Faster stakeholder review, easier output testing, and clearer distinction between normal no-result conditions and true failures.
+- Validation performed: Confirmed that the sample outputs preserve observation-only framing and classify each result type consistently with the adapter and workflow rules.
+- Rollback method: Remove or revise the sample output file if the output structure changes.
+- Related files:
+  - `pilots/azure_appointments_observation/sample_rendered_observation_output.md`
+  - `pilots/azure_appointments_observation/observation_prompt.md`
+  - `pilots/azure_appointments_observation/run_observation_workflow.ps1`
+- Notes: This is an illustrative reference output, not a live run artifact.
+
 ## 2026-04-16 - Azure observation workflow runner added
 - Operator: ChatGPT
 - Area: Scripts
