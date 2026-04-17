@@ -53,7 +53,7 @@ State:
 #### Audit Notes
 State:
 - classification value
-n- endpoint used
+- endpoint used
 - whether filtering was server-side or client-side
 - whether the output remained observation-only
 
