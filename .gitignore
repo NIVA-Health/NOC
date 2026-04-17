@@ -40,3 +40,6 @@ cache/
 
 # Runtime output from Azure appointments observation workflow
 pilots/azure_appointments_observation/last_observation_result.json
+
+# Runtime output from BigQuery primary observation workflow
+pilots/bigquery_primary_observation/last_observation_result.json
