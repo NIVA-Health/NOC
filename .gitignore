@@ -37,3 +37,6 @@ logs/
 .tmp/
 tmp/
 cache/
+
+# Runtime output from Azure appointments observation workflow
+pilots/azure_appointments_observation/last_observation_result.json
