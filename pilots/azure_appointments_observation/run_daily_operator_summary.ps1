@@ -55,17 +55,29 @@ $totalReturned = $null
 $workflowMessage = $null
 
 if ($null -ne $result.verified_result) {
-    $class = $result.verified_result.classification
-    $matchingCount = $result.verified_result.match_count
-    $totalReturned = $result.verified_result.total_records_returned
+    if ($result.verified_result.PSObject.Properties.Name -contains "classification") {
+        $class = $result.verified_result.classification
+    }
+
+    if ($result.verified_result.PSObject.Properties.Name -contains "match_count") {
+        $matchingCount = $result.verified_result.match_count
+    }
+
+    if ($result.verified_result.PSObject.Properties.Name -contains "total_records_returned") {
+        $totalReturned = $result.verified_result.total_records_returned
+    }
 }
 
 if ((-not $class) -and $null -ne $result.adapter_payload) {
-    $class = $result.adapter_payload.classification
+    if ($result.adapter_payload.PSObject.Properties.Name -contains "classification") {
+        $class = $result.adapter_payload.classification
+    }
 }
 
-if ($null -ne $result.adapter_payload -and $null -ne $result.adapter_payload.message) {
-    $workflowMessage = $result.adapter_payload.message
+if ($null -ne $result.adapter_payload) {
+    if ($result.adapter_payload.PSObject.Properties.Name -contains "message") {
+        $workflowMessage = $result.adapter_payload.message
+    }
 }
 
 Write-Host ""
