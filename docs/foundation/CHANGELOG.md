@@ -59,6 +59,21 @@ Use one of these labels when possible.
 
 ## Current Log
 
+## 2026-04-16 - Data source integration phase defined
+- Operator: ChatGPT
+- Area: Docs
+- Change: Added a formal next-phase plan for turning the validated Azure-hosted API connection into a repeatable NOC data source integration pattern.
+- Reason: The team has proven external data source connectivity and now needs a governed, reusable process for query handling, failure classification, mapping, and observation-only workflow rollout.
+- Expected impact: Faster onboarding of future data sources, less re-debugging, clearer failure handling, and a more scalable proof-of-value path for NOC.
+- Validation performed: Confirmed the plan aligns with recent successful API connectivity testing and with the repo's staged deployment logic.
+- Rollback method: Remove or revise the plan document if the integration approach changes.
+- Related files:
+  - `docs/rollout/data_source_integration_plan.md`
+  - `docs/rollout/deployment_path.md`
+  - `docs/governance/agent_runtime_contract.md`
+  - `docs/governance/governance_queue.md`
+- Notes: This change records the strategic shift from proving connectivity to operationalizing a reusable integration pattern.
+
 ## 2026-04-09 - Documentation scaffold created
 - Operator: ChatGPT
 - Area: Docs
