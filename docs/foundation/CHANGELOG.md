@@ -59,6 +59,21 @@ Use one of these labels when possible.
 
 ## Current Log
 
+## 2026-04-16 - Azure observation workflow runner added
+- Operator: ChatGPT
+- Area: Scripts
+- Change: Added an end-to-end observation workflow runner and pilot README for the Azure appointments observation pilot. The runner executes the smoke test, classifies the result, and writes a structured observation payload for downstream summary generation.
+- Reason: Complete the first live external-source workflow path so NOC can move from disconnected artifacts to a repeatable observation-only execution flow.
+- Expected impact: Faster operator validation, easier repeated testing, and a cleaner bridge from adapter output to executive-friendly summaries.
+- Validation performed: Confirmed the workflow runner maps smoke test classifications into operational meanings and preserves observation-only guardrails in the output payload.
+- Rollback method: Remove or revise the runner and README if the pilot execution pattern changes.
+- Related files:
+  - `pilots/azure_appointments_observation/run_observation_workflow.ps1`
+  - `pilots/azure_appointments_observation/README.md`
+  - `pilots/azure_appointments_observation/observation_prompt.md`
+  - `runtime/adapters/azure_appointments_smoke_test.ps1`
+- Notes: This is the first repo artifact that ties external-source validation directly to a structured workflow output.
+
 ## 2026-04-16 - Azure appointments observation pilot defined
 - Operator: ChatGPT
 - Area: Docs
